@@ -6,18 +6,21 @@ interface Props {}
 const Page = ({}: Props) => {
     return (
         <div className="space-y-4">
-            <Head title="About us" />
+            <Head title="Different Layout Page" />
 
-            <h1>About us Page</h1>
-            <p>Takes the layout from the parent "group"</p>
+            <h1>Different Layout Page</h1>
+            <p>
+                The layout file in this group completely{" "}
+                <strong>overrides</strong> the layout file in the parent group.
+            </p>
 
             <div className="flex flex-wrap items-center gap-2">
                 <Link href="/">
                     <Button>Go home</Button>
                 </Link>
 
-                <Link href="/different-page">
-                    <Button variant={"secondary"}>Different Layout Page</Button>
+                <Link href="/about">
+                    <Button variant={"secondary"}>About Us</Button>
                 </Link>
             </div>
         </div>
