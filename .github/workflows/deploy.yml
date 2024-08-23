@@ -40,10 +40,93 @@ jobs:
         uses: voxmedia/github-action-slack-notify-build@v1
         with:
           channel: bot-github
-          status: STARTING FIX
+          status: STARTING Deployment
           color: warning
 
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2 # https://github.com/shivammathur/setup-php
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, dom, fileinfo, mysql, libxml, xml, xmlwriter, dom, tokenizer, filter, json, phar, pcre, openssl, pdo, intl, curl
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          # Use composer.json for key, if composer.lock is not committed.
+          # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      # Run tests on Laravel
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Create Database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
+      - name: Run Migrations
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --force
+
+      - name: Generate key
+        run: php artisan key:generate --force
+
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      # Run npm tests
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          check-latest: true
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 9
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Build and Test Node Packages
+        run: |
+          pnpm install
+          npm run build
+
+      # Run php tests
+      - name: Execute tests (Unit and Feature tests) via Pest
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: ./vendor/bin/pest --parallel
+
       - name: Notify slack success
+        if: ${{ success() }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
         uses: voxmedia/github-action-slack-notify-build@v1
@@ -55,6 +138,7 @@ jobs:
           color: warning
 
       - name: Notify slack fail
+        if: ${{ failure() }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
         uses: voxmedia/github-action-slack-notify-build@v1
@@ -70,7 +154,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NEW_TAG
           script: |
             echo "Deploying LaraNext"
             set -e
@@ -84,6 +167,7 @@ jobs:
             ./run-ci-cd-updater.sh
 
       - name: Notify slack success
+        if: ${{ success() }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
         uses: voxmedia/github-action-slack-notify-build@v1
@@ -91,15 +175,16 @@ jobs:
           # Updates existing message from the first step
           message_id: ${{ steps.slack.outputs.message_id }}
           channel: bot-github
-          status: SUCCESS FIX
+          status: SUCCESS Deployment
           color: good
 
       - name: Notify slack fail
+        if: ${{ failure() }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
         uses: voxmedia/github-action-slack-notify-build@v1
         with:
           channel: bot-github
-          status: FAILED FIX
+          status: FAILED Deployment
           color: danger
 
