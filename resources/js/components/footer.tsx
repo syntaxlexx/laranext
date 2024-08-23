@@ -1,6 +1,9 @@
+import { sharedProps } from "@laravext/react";
 import { LogoIcon } from "./icons";
 
 export const Footer = () => {
+    const props = sharedProps();
+
     return (
         <footer id="footer">
             <hr className="w-11/12 mx-auto" />
@@ -13,7 +16,7 @@ export const Footer = () => {
                         className="font-bold text-xl flex"
                     >
                         <LogoIcon />
-                        ShadcnUI/React
+                        {props.site.name}
                     </a>
                 </div>
 
@@ -22,7 +25,7 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href={props.site.github}
                             className="opacity-60 hover:opacity-100"
                         >
                             Github
@@ -32,7 +35,7 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href={props.site.twitter}
                             className="opacity-60 hover:opacity-100"
                         >
                             Twitter
@@ -42,10 +45,10 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href={props.site.youtube}
                             className="opacity-60 hover:opacity-100"
                         >
-                            Dribbble
+                            Youtube
                         </a>
                     </div>
                 </div>
@@ -88,7 +91,7 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href="#features"
                             className="opacity-60 hover:opacity-100"
                         >
                             Features
@@ -98,17 +101,17 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href="/demo"
                             className="opacity-60 hover:opacity-100"
                         >
-                            Pricing
+                            Demo
                         </a>
                     </div>
 
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href="#faq"
                             className="opacity-60 hover:opacity-100"
                         >
                             FAQ
@@ -121,7 +124,7 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href={props.site.youtube}
                             className="opacity-60 hover:opacity-100"
                         >
                             Youtube
@@ -131,7 +134,7 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href={props.site.discord}
                             className="opacity-60 hover:opacity-100"
                         >
                             Discord
@@ -141,7 +144,7 @@ export const Footer = () => {
                     <div>
                         <a
                             rel="noreferrer noopener"
-                            href="#"
+                            href={props.site.twitch}
                             className="opacity-60 hover:opacity-100"
                         >
                             Twitch
@@ -152,7 +155,8 @@ export const Footer = () => {
 
             <section className="container pb-14 text-center">
                 <h3>
-                    &copy; 2024 Landing page made by{" "}
+                    &copy; {new Date().getFullYear()} &middot; {props.site.name}{" "}
+                    made by{" "}
                     <a
                         rel="noreferrer noopener"
                         target="_blank"

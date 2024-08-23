@@ -11,7 +11,7 @@ const Layout = ({ children }: Props) => {
             <div className="h-full w-full">
                 <Navbar />
 
-                <main className="container mt-4">{children}</main>
+                <main className="mt-4">{children}</main>
 
                 <Footer />
             </div>

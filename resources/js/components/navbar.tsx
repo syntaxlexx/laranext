@@ -17,6 +17,7 @@ import { buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./icons";
+import { Link } from "@laravext/react";
 
 interface RouteProps {
     href: string;
@@ -33,12 +34,12 @@ const routeList: RouteProps[] = [
         label: "Testimonials",
     },
     {
-        href: "#pricing",
-        label: "Pricing",
-    },
-    {
         href: "#faq",
         label: "FAQ",
+    },
+    {
+        href: "/demo/about",
+        label: "About (Demo)",
     },
 ];
 
@@ -49,14 +50,14 @@ export const Navbar = () => {
             <NavigationMenu className="mx-auto">
                 <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
                     <NavigationMenuItem className="font-bold flex">
-                        <a
+                        <Link
                             rel="noreferrer noopener"
                             href="/"
                             className="ml-2 font-bold text-xl flex"
                         >
                             <LogoIcon />
-                            ShadcnUI/React
-                        </a>
+                            Laravel/ShadcnUI/React
+                        </Link>
                     </NavigationMenuItem>
 
                     {/* mobile */}
@@ -82,7 +83,7 @@ export const Navbar = () => {
                                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
                                     {routeList.map(
                                         ({ href, label }: RouteProps) => (
-                                            <a
+                                            <Link
                                                 rel="noreferrer noopener"
                                                 key={label}
                                                 href={href}
@@ -92,12 +93,12 @@ export const Navbar = () => {
                                                 })}
                                             >
                                                 {label}
-                                            </a>
+                                            </Link>
                                         )
                                     )}
                                     <a
                                         rel="noreferrer noopener"
-                                        href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+                                        href="https://github.com/syntaxlexx/laranext-react-shadcn"
                                         target="_blank"
                                         className={`w-[110px] border ${buttonVariants(
                                             {
@@ -116,7 +117,7 @@ export const Navbar = () => {
                     {/* desktop */}
                     <nav className="hidden md:flex gap-2">
                         {routeList.map((route: RouteProps, i) => (
-                            <a
+                            <Link
                                 rel="noreferrer noopener"
                                 href={route.href}
                                 key={i}
@@ -125,14 +126,14 @@ export const Navbar = () => {
                                 })}`}
                             >
                                 {route.label}
-                            </a>
+                            </Link>
                         ))}
                     </nav>
 
                     <div className="hidden md:flex gap-2">
                         <a
                             rel="noreferrer noopener"
-                            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+                            href="https://github.com/syntaxlexx/laranext-react-shadcn"
                             target="_blank"
                             className={`border ${buttonVariants({
                                 variant: "secondary",

@@ -1,9 +1,12 @@
-import { Button } from "../ui/button";
-import { buttonVariants } from "../ui/button";
+import { Button } from "../../../components/ui/button";
+import { buttonVariants } from "../../../components/ui/button";
 import { HeroCards } from "./hero-cards";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { sharedProps } from "@laravext/react";
 
 export const Hero = () => {
+    const props = sharedProps();
+
     return (
         <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10">
             <div className="text-center lg:text-start space-y-6">
@@ -29,11 +32,17 @@ export const Hero = () => {
                 </p>
 
                 <div className="space-y-4 md:space-y-0 md:space-x-4">
-                    <Button className="w-full md:w-1/3">Get Started</Button>
+                    <a
+                        rel="noreferrer noopener"
+                        href={props.site.github + "#getting-started"}
+                        target="_blank"
+                    >
+                        <Button className="w-full md:w-1/3">Get Started</Button>
+                    </a>
 
                     <a
                         rel="noreferrer noopener"
-                        href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+                        href={props.site.github}
                         target="_blank"
                         className={`w-full md:w-1/3 ${buttonVariants({
                             variant: "outline",

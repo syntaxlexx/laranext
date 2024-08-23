@@ -1,9 +1,13 @@
-import { About } from "@/components/home/about";
-import { Features } from "@/components/home/features";
-import { Hero } from "@/components/home/hero";
-import { HowItWorks } from "@/components/home/how-it-works";
+import { About } from "./_home/about";
+import { Features } from "./_home/features";
+import { Hero } from "./_home/hero";
+import { HowItWorks } from "./_home/how-it-works";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { Head } from "@laravext/react";
+import { Testimonials } from "./_home/testimonials";
+import { Cta } from "./_home/cta";
+import { Newsletter } from "./_home/newsletter";
+import { FAQ } from "./_home/faq";
 
 interface Props {}
 
@@ -20,15 +24,19 @@ const Page = ({}: Props) => {
 
             <Features />
 
-            {/* <Sponsors />
+            <Cta />
+
+            <Testimonials />
+
+            <Newsletter />
+
+            <FAQ />
+
+            {/* 
+            <Sponsors />
       <Services />
-      <Cta />
-      <Testimonials />
       <Team />
       <Pricing />
-      <Newsletter />
-      <FAQ />
-      <Footer />
        */}
 
             <ScrollToTop />
