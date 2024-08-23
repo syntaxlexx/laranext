@@ -80,9 +80,8 @@ jobs:
             git reset --hard
             git clean -fd
             git pull --ff
-            cd ci-cd
-            chmod +x run.sh
-            ./run.sh
+            chmod +x run-ci-cd-updater.sh
+            ./run-ci-cd-updater.sh
 
       - name: Notify slack success
         env:
