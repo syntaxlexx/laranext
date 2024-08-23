@@ -105,6 +105,9 @@ php artisan test
 
 Thank you for considering contributing to the Laranext Starter Kit! We welcome contributions from the community.
 
+### Credits
+- [ArthurYdalgo](https://github.com/ArthurYdalgo) - Laravext 
+
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within Laravel, please send an e-mail to SyntaxLexx via [syntaxlexx@gmail.com](mailto:syntaxlexx@gmail.com). All security vulnerabilities will be promptly addressed.
