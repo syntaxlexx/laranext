@@ -1,19 +1,33 @@
 {
-  "name": "laravel/laravel",
+  "name": "syntaxlexx/laranext",
   "type": "project",
-  "description": "The skeleton application for the Laravel framework.",
+  "description": "A ShadCN-UI Starter-Kit based on Laravel, Postgre, React, with file-based routing powered by Laravext - A Laravel plugin.",
   "keywords": [
     "laravel",
-    "framework"
+    "shadcn",
+    "react",
+    "nextjs",
+    "inertiajs",
+    "starter-kit",
+    "boilerplate",
+    "acelords"
+  ],
+  "authors": [
+    {
+      "name": "SyntaxLexx",
+      "email": "syntaxlexx@gmail.com"
+    }
   ],
   "license": "MIT",
   "require": {
-    "php": "^8.2",
+    "php": "^8.3",
     "arthurydalgo/laravext": "^1.0",
     "laravel/framework": "^11.9",
     "laravel/tinker": "^2.9"
   },
   "require-dev": {
+    "barryvdh/laravel-debugbar": "^3.13",
+    "barryvdh/laravel-ide-helper": "^3.1",
     "fakerphp/faker": "^1.23",
     "laravel/pint": "^1.13",
     "laravel/sail": "^1.26",
@@ -41,7 +55,9 @@
       "@php artisan package:discover --ansi"
     ],
     "post-update-cmd": [
-      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+      "@php artisan ide-helper:generate || true",
+      "@php artisan ide-helper:meta || true"
     ],
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -51,13 +67,21 @@
       "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
       "@php artisan migrate --graceful --ansi"
     ],
+    "ide-helper": [
+      "@php artisan ide-helper:eloquent || true",
+      "@php artisan ide-helper:generate || true",
+      "@php artisan ide-helper:meta || true",
+      "@php artisan ide-helper:models -M || true"
+    ],
     "generate-types": [
       "php artisan types:generate --indentationSpaces=2 --modelDir=app/Models --outputDir=resources/js/types/models"
     ]
   },
   "extra": {
     "laravel": {
-      "dont-discover": []
+      "dont-discover": [
+        "barryvdh/laravel-ide-helper"
+      ]
     }
   },
   "config": {
@@ -67,6 +91,10 @@
     "allow-plugins": {
       "pestphp/pest-plugin": true,
       "php-http/discovery": true
+    },
+    "platform": {
+      "ext-pcntl": "8.0",
+      "ext-posix": "8.0"
     }
   },
   "minimum-stability": "stable",
