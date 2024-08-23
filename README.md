@@ -30,6 +30,17 @@ This kit is designed to be a lightweight and easy-to-use solution for building *
 
 >Want a vuejs version? We've got a [Kick-Starter Campaign over at Kofi](https://ko-fi.com/acelords) to help with a few development costs.
 
+#### Features
+- CI-CD via Github Actions
+- ShadCN-UI React Library 
+- Laravel 11 + Postgre (Neon)
+- React 18 + zustand
+- Social Login
+- Live-Chat
+- SEO mgmt
+- Admin Dashboard
+- Server Load Info + Application monitoring
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
