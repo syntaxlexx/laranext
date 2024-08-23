@@ -1,5 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Head, Link } from "@laravext/react";
+import { About } from "@/components/home/about";
+import { Features } from "@/components/home/features";
+import { Hero } from "@/components/home/hero";
+import { HowItWorks } from "@/components/home/how-it-works";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { Head } from "@laravext/react";
 
 interface Props {}
 
@@ -8,17 +12,26 @@ const Page = ({}: Props) => {
         <div className="space-y-4">
             <Head title="Welcome Home" />
 
-            <h1>Welcome Home</h1>
+            <Hero />
 
-            <div className="flex flex-wrap items-center gap-2">
-                <Link href="/about">
-                    <Button>About us</Button>
-                </Link>
+            <About />
 
-                <Link href="/different-page">
-                    <Button variant={"secondary"}>Different Layout Page</Button>
-                </Link>
-            </div>
+            <HowItWorks />
+
+            <Features />
+
+            {/* <Sponsors />
+      <Services />
+      <Cta />
+      <Testimonials />
+      <Team />
+      <Pricing />
+      <Newsletter />
+      <FAQ />
+      <Footer />
+       */}
+
+            <ScrollToTop />
         </div>
     );
 };
