@@ -7,6 +7,19 @@
 
 ![LaraNext](public/screenshot.jpg)
 
+# Table of Contents
+- [About LaraNext - The React+ShadCN-UI Starter Kit](#about-laranext---the-reactshadcn-ui-starter-kit)
+- [About Laravel](#about-laravel)
+- [Learning Laravel](#learning-laravel)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running tests](#running-tests)
+- [Contributing](#contributing)
+- [Security Vulnerabilities](#security-vulnerabilities)
+- [License](#license)
+
+
 ## About LaraNext - The React+ShadCN-UI Starter Kit
 Laranext is a React+Shadcn starter kit for building Laravel applications. It merges the ideas portrayed in the [Laravel Inertia.js](https://github.com/inertiajs/inertia-next), [React Inertia](https://github.com/inertiajs/react-inertia), and [Nextjs](https://nextjs.org/) projects into a single starter kit. 
 
