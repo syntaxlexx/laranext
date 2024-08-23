@@ -15,6 +15,8 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Running tests](#running-tests)
+- [Developer Notes](#developer-notes)
+  - [Todos](#todos)
 - [Contributing](#contributing)
   - [Credits](#credits)
 - [Security Vulnerabilities](#security-vulnerabilities)
@@ -101,6 +103,42 @@ The starter-kit uses **Pest** for testing.
 ```bash
 php artisan test
 ```
+
+## Developer Notes
+### Todos
+- [x] Landing page
+- [x] Demo pages for layout stuff
+- [x] Models -> typescript generator
+- [ ] Blog
+- [ ] Post + Comments
+- [ ] Live-chat - Laravel Reverb + Echo
+- [ ] Auth pages
+  - [ ] Login
+  - [ ] Register
+  - [ ] Reset password
+  - [ ] Social Login
+- [ ] Admin
+  - [ ] Dashboard
+  - [ ] Posts mgmt
+  - [ ] Comments mgmt
+  - [ ] Users mgmt
+  - [ ] Profile mgmt 
+  - [ ] Settings - Update .env
+  - [ ] Settings - Update SEO metadata
+  - [ ] Server info - Laravel Pulse
+- [ ] Dashboard for Users
+  - [ ] Liked Posts
+  - [ ] Bookmarks
+  - [ ] Posts mgmt
+  - [ ] Comments
+  - [ ] Profile mgmt
+
+### Common Configuration files + Scripts
+#### Supervisor
+#### Laravel Pulse
+#### Laravel Reverb
+#### Scheduler
+#### Common Laravel Commands
 
 ## Contributing
 
