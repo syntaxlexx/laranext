@@ -1,0 +1,112 @@
+# script to deploy the laravel upstream to the dev server
+# required secrets: HOST, USERNAME, PASSWORD, APP_PATH, APPNAME, SLACK_NOTIFICATIONS_BOT_TOKEN, SSH_PRIVATE_KEY
+
+# If you are using OpenSSH
+# If you are currently using OpenSSH and are getting the following error:
+# ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey]
+# Make sure that your key algorithm of choice is supported. On Ubuntu 20.04 or later you must explicitly allow the use of the ssh-rsa algorithm. Add the following line to your OpenSSH daemon file (which is either /etc/ssh/sshd_config or a drop-in file under /etc/ssh/sshd_config.d/):
+# CASignatureAlgorithms +ssh-rsa
+
+
+name: Deploy LaraNext to Production
+
+# Controls when the workflow will run
+on:
+  push:
+    # Trigger the workflow only when something is pushed to the repository
+    branches:
+      - main  # Update with your main branch, or use '*' for all branches
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+       
+      - name: Notify slack success
+        if: ${{ steps.check_patch_version.outputs.patch_version_changed == 'true' && success() }} 
+        id: slack # IMPORTANT: reference this step ID value in future Slack steps
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: bot-github
+          status: STARTING FIX
+          color: warning
+
+      - name: Notify slack success
+        if: ${{ steps.check_patch_version.outputs.patch_version_changed == 'true' && success() }} 
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          # Updates existing message from the first step
+          message_id: ${{ steps.slack.outputs.message_id }}
+          channel: bot-github
+          status: DEPLOYING LaraNext
+          color: warning
+
+      - name: Notify slack fail
+        if: ${{ steps.check_patch_version.outputs.patch_version_changed == 'true' && failure() }} 
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: bot-github
+          status: FAILED 
+          color: danger
+          
+      # Deploy to prod server
+      - name: Deploying System
+        if: ${{ steps.check_patch_version.outputs.patch_version_changed == 'true' }}
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: NEW_TAG
+          script: |
+            echo "Deploying LaraNext"
+            set -e
+            whoami
+            pwd
+            cd ${{ secrets.APP_PATH }}
+            git reset --hard
+            git clean -fd
+            git pull --ff
+            cd ci-cd
+            chmod +x run.sh
+            ./run.sh
+
+      - name: Notify slack success
+        if: ${{ steps.check_patch_version.outputs.patch_version_changed == 'true' && success() }} 
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          # Updates existing message from the first step
+          message_id: ${{ steps.slack.outputs.message_id }}
+          channel: bot-github
+          status: SUCCESS FIX
+          color: good
+
+      - name: Notify slack fail
+        if: ${{ steps.check_patch_version.outputs.patch_version_changed == 'true' && failure() }} 
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: bot-github
+          status: FAILED FIX
+          color: danger
+
