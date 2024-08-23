@@ -16,6 +16,7 @@
   - [Installation](#installation)
   - [Running tests](#running-tests)
 - [Contributing](#contributing)
+  - [Credits](#credits)
 - [Security Vulnerabilities](#security-vulnerabilities)
 - [License](#license)
 
@@ -106,7 +107,8 @@ php artisan test
 Thank you for considering contributing to the Laranext Starter Kit! We welcome contributions from the community.
 
 ### Credits
-- [ArthurYdalgo](https://github.com/ArthurYdalgo) - Laravext 
+- [ArthurYdalgo](https://github.com/ArthurYdalgo) - [Laravext](https://laravext.dev/) 
+- [AceLords](https://acelords.com) - Server Resources
 
 ## Security Vulnerabilities
 
