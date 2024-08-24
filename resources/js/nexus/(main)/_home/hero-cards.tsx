@@ -1,9 +1,5 @@
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-} from "../../../components/ui/avatar";
-import { Badge } from "../../../components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
     Card,
@@ -14,7 +10,7 @@ import {
     CardFooter,
 } from "@/components/ui/card";
 import { Check, Linkedin } from "lucide-react";
-import { LightBulbIcon } from "../../../components/icons";
+import { LightBulbIcon } from "@/components/icons";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export const HeroCards = () => {
@@ -93,8 +89,8 @@ export const HeroCards = () => {
             <Card className="absolute right-[20px] top-4 w-80 flex flex-col justify-center items-center drop-shadow-xl shadow-black/10 dark:shadow-white/10">
                 <CardHeader className="mt-8 flex justify-center items-center pb-2">
                     <img
-                        src="https://i.pravatar.cc/150?img=58"
-                        alt="user avatar"
+                        src="https://avatars.githubusercontent.com/u/19994360?v=4"
+                        alt="SyntaxLexx"
                         className="absolute grayscale-[0%] -top-12 rounded-full w-24 h-24 aspect-square object-cover"
                     />
                     <CardTitle className="text-center">

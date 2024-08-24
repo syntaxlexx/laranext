@@ -18279,6 +18279,26 @@ namespace Illuminate\Support\Facades {
             }
     }
 
+namespace Scrumble\TypeGenerator\Facades {
+            /**
+     * 
+     *
+     */        class FormatNamespace {
+                    /**
+         * 
+         *
+         * @param string $path
+         * @throws Exception
+         * @return string 
+         * @static 
+         */        public static function get($path)
+        {
+                        /** @var \Scrumble\TypeGenerator\Services\FormatNamespace $instance */
+                        return $instance->get($path);
+        }
+            }
+    }
+
 namespace Barryvdh\Debugbar\Facades {
             /**
      * 
@@ -18769,26 +18789,6 @@ namespace Barryvdh\Debugbar\Facades {
         {            //Method inherited from \DebugBar\DebugBar         
                         /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
                         return $instance->offsetUnset($key);
-        }
-            }
-    }
-
-namespace Scrumble\TypeGenerator\Facades {
-            /**
-     * 
-     *
-     */        class FormatNamespace {
-                    /**
-         * 
-         *
-         * @param string $path
-         * @throws Exception
-         * @return string 
-         * @static 
-         */        public static function get($path)
-        {
-                        /** @var \Scrumble\TypeGenerator\Services\FormatNamespace $instance */
-                        return $instance->get($path);
         }
             }
     }
@@ -22604,8 +22604,8 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
-            class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
             class FormatNamespace extends \Scrumble\TypeGenerator\Facades\FormatNamespace {}
+            class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
     }
 
 

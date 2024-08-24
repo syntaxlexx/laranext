@@ -21,6 +21,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.3",
+    "acelords/laravel-model-ts-type": "^1.0",
     "arthurydalgo/laravext": "^1.0",
     "laravel/framework": "^11.9",
     "laravel/tinker": "^2.9"
@@ -34,8 +35,7 @@
     "mockery/mockery": "^1.6",
     "nunomaduro/collision": "^8.0",
     "pestphp/pest": "^2.35",
-    "pestphp/pest-plugin-laravel": "^2.4",
-    "scrumble-nl/laravel-model-ts-type": "^10.4"
+    "pestphp/pest-plugin-laravel": "^2.4"
   },
   "autoload": {
     "psr-4": {
