@@ -90,24 +90,28 @@ cp .env.example .env
 composer install
 pnpm install
 ```
-4. Migrate the database migrations
+4. Generate the application key
+```bash
+php artisan key:generate
+```
+5. Migrate the database migrations
 ```bash
 php artisan migrate
 ```
-5. Seed the database
+6. Seed the database
 ```bash
 php artisan db:seed
 ```
-6. Refresh IDE metadata files and generate typescript types
+7. Refresh IDE metadata files and generate typescript types
 ```bash
 composer ide-helper
 composer generate-types
 ```
-7. Start the development server
+8. Start the development server
 ```bash
 npm run dev
 ```
-8. Visit the application at [http://laranext.test](http://laranext.test)
+9. Visit the application at [http://laranext.test](http://laranext.test)
 
 ### Running tests
 The starter-kit uses **Pest** for testing.
