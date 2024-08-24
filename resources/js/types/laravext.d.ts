@@ -1,11 +1,12 @@
 declare module "@laravext/react" {
   export const createLaravextApp: any;
   export const createLaravextSsrApp: any;
+  export const Head: any;
+  export const Link: any;
   export const laravextPageData: any;
   export const version: any;
   export const nexus: any;
   export const nexusProps: any;
-  // export function sharedProps<T extends SharedProps>(): Page<T>; // the T generic will combine any type you add to it & the PageProps interface defined in @inertiajs/core
   export const sharedProps: any;
   export const routeParams: any;
   export const routeName: any;
