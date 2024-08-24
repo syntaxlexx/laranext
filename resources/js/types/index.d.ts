@@ -20,6 +20,8 @@ export type SharedProps<
     instagram: string | null;
     tiktok: string | null;
     youtube: string | null;
+    github: string | null;
+    discord: string | null;
     whatsapp: string | null;
   };
 };

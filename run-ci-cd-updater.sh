@@ -5,7 +5,7 @@ echo "Running LaraNext update..."
 pwd
 git reset --hard
 git clean -fd
-# php artisan optimize:clear
+php artisan optimize:clear
 # php artisan icons:clear
 # php artisan filament:clear-cached-components
 git pull --ff
@@ -16,7 +16,7 @@ source ~/.nvm/nvm.sh
 npm install -g pnpm
 pnpm i
 npm run build
-# php artisan optimize
+php artisan optimize
 # php artisan icons:cache
 # php artisan filament:cache-components
 echo 'Running commands after update...'
