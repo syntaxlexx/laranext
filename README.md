@@ -16,7 +16,16 @@
   - [Installation](#installation)
   - [Running tests](#running-tests)
 - [Developer Notes](#developer-notes)
-  - [Todos](#todos)
+  - [Todo List](#todo-list)
+  - [Common Configuration files + Scripts](#common-configuration-files--scripts)
+    - [Supervisor](#supervisor)
+    - [Laravel Pulse](#laravel-pulse)
+    - [Laravel Reverb](#laravel-reverb)
+    - [Laravel Horizon](#laravel-horizon)
+    - [Scheduler](#scheduler)
+    - [Slack Notifications](#slack-notifications)
+    - [Common Laravel Commands](#common-laravel-commands)
+
 - [Contributing](#contributing)
   - [Credits](#credits)
 - [Security Vulnerabilities](#security-vulnerabilities)
@@ -77,7 +86,7 @@ For testing purposes, you may also use sqlite. But we **highly** encourage Postg
 
 ### Installation
 1. Clone the repository into your **Sites** directory 
-  - (Hope you're using [Laravel Herd](https://herd.laravel.com/)  or [Laravel Valet](https://laravel.com/docs/11.x/valet) to serve your sites)
+    - (Hope you're using [Laravel Herd](https://herd.laravel.com/)  or [Laravel Valet](https://laravel.com/docs/11.x/valet) to serve your sites)
 ```bash
 git clone https://github.com/syntaxlexx/laranext.git
 ```
@@ -94,7 +103,7 @@ pnpm install
 ```bash
 php artisan key:generate
 ```
-5. Migrate the database migrations
+5. Run the database migrations
 ```bash
 php artisan migrate
 ```
@@ -113,14 +122,23 @@ npm run dev
 ```
 9. Visit the application at [http://laranext.test](http://laranext.test)
 
+    - If you prefer to *serve* the application, you can run the following command:
+  ```bash
+  php artisan serve
+  ```
+  Remember to update the `.env` file with the correct URL values.
+
 ### Running tests
 The starter-kit uses **Pest** for testing.
 ```bash
 php artisan test
+
+# run tests in parallel
+php artisan test --parallel
 ```
 
 ## Developer Notes
-### Todos
+### Todo List
 - [x] Landing page
 - [x] Demo pages for layout stuff
 - [x] Models -> typescript generator
@@ -150,17 +168,124 @@ php artisan test
 
 ### Common Configuration files + Scripts
 #### Supervisor
+[Install supervisor](https://saywebsolutions.com/blog/installing-supervisor-manage-laravel-queue-processes-ubuntu) to automatically manage your background processes
+
+```bash
+sudo nano /etc/supervisor/conf.d/laranext-worker.conf
+```
+
+Update script
+
+```bash
+[program:laranext-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/laranext/artisan queue:work redis --queue=laranext --sleep=3 --tries=3 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=sudouser
+numprocs=2
+redirect_stderr=true
+stdout_logfile=/var/www/laranext/storage/logs/worker.log
+stopwaitsecs=3600
+```
+
+Supervisor management
+
+```bash
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start "laranext-worker:*"
+sudo supervisorctl status
+```
 #### Laravel Pulse
+[Laravel Pulse](https://pulse.laravel.com/) is excellent in monitoring background processes.
+Remember to use the `Redis` driver.
+
+```bash
+sudo nano /etc/supervisor/conf.d/laranext-pulse.conf
+```
+
+Update Script
+
+```bash
+[program:laranext-pulse]
+process_name=%(program_name)s
+command=php /var/www/laranext/artisan pulse:work
+autostart=true
+autorestart=true
+user=sudouser
+redirect_stderr=true
+stdout_logfile=/var/www/laranext/storage/logs/pulse.log
+stopwaitsecs=3600
+```
+
+Then remember to run:
+```bash
+sudo supervisorctl reread
+sudo supervisorctl update
+supervisorctl start laranext-pulse
+sudo supervisorctl status
+```
+
 #### Laravel Reverb
+[Laravel Reverb](https://reverb.laravel.com/) is a first-party WebSocket server for Laravel applications, bringing real-time communication between client and server directly to your fingertips.
+
+Ensure you set the `REVERB_*` values accordingly in your `.env` file.
+
+[Read More on it here](https://laravel.com/docs/11.x/reverb) on how to get started.
+
+#### Laravel Horizon
+[Laravel Horizon](https://laravel.com/docs/11.x/horizon#main-content) provides a beautiful dashboard and code-driven configuration for your Laravel powered Redis queues.
+
+Ensure you set the `QUEUE_CONNECTION` as `redis` in your `.env` file.
+
 #### Scheduler
+[Auto-run commands](https://laravel.com/docs/11.x/scheduling#running-the-scheduler). The commands are run in a cronjob
+
+```bash
+crontab -e
+```
+
+Enter the following script
+
+```bash
+# Scheduler
+* * * * * cd /var/www/laranext && php artisan schedule:run >> /dev/null 2>&1
+```
+
+#### Slack Notifications
+Create a [Slack App here](https://api.slack.com/apps)
+Bot Scopes required
+- incoming webhooks
+- chat:write
+- channels:read
+- groups:read
+
+Also remember to go to the slack itself, create a `bot-github` channel, and run this command from chat
+`/install`
+Select the app to install
+
 #### Common Laravel Commands
+- `php artisan about` -> view info about your app
+- `php artisan schedule:list` -> view scheduled commands
+- `php artisan horizon:clear` -> delete all jobs from your application's default queue
+- `php artisan horizon:clear --queue=emails` -> delete all jobs from specific queue
+- `php artisan scout:flush "App\Models\Todo"` -> delete all scout indexed data
+- `php artisan scout:import "App\Models\Todo"` -> recreate all scout data
+
+```bash
+php artisan scout:flush "App\Models\Todo" && php artisan scout:import "App\Models\Todo"
+```
 
 ## Contributing
 
 Thank you for considering contributing to the Laranext Starter Kit! We welcome contributions from the community.
 
 ### Credits
-- [ArthurYdalgo](https://github.com/ArthurYdalgo) - [Laravext](https://laravext.dev/) 
+- [/SyntaxLexx](https://github.com/SyntaxLexx) - [Twitter](https://twitter.com/SyntaxLexx)
+- [ArthurYdalgo](https://github.com/ArthurYdalgo) - [Laravext](https://laravext.dev/)
 - [AceLords](https://acelords.com) - Server Resources
 
 ## Security Vulnerabilities
