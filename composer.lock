@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "arthurydalgo/laravext",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArthurYdalgo/laravext-packagist.git",
-                "reference": "f9c16460f3b28df880c94a13f3a8f1f03309bdeb"
+                "reference": "f000637de36ef3b451eee431a0621c73e65c7076"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ArthurYdalgo/laravext-packagist/zipball/f9c16460f3b28df880c94a13f3a8f1f03309bdeb",
-                "reference": "f9c16460f3b28df880c94a13f3a8f1f03309bdeb",
+                "url": "https://api.github.com/repos/ArthurYdalgo/laravext-packagist/zipball/f000637de36ef3b451eee431a0621c73e65c7076",
+                "reference": "f000637de36ef3b451eee431a0621c73e65c7076",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "The Laravel Toolset",
+            "description": "The Laravext Toolset for Laravel",
             "homepage": "https://github.com/arthurydalgo/laravext",
             "keywords": [
                 "arthurydalgo",
@@ -65,9 +65,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ArthurYdalgo/laravext-packagist/issues",
-                "source": "https://github.com/ArthurYdalgo/laravext-packagist/tree/1.0.0"
+                "source": "https://github.com/ArthurYdalgo/laravext-packagist/tree/1.0.1"
             },
-            "time": "2024-08-19T02:38:49+00:00"
+            "time": "2024-08-24T04:12:28+00:00"
         },
         {
             "name": "brick/math",
